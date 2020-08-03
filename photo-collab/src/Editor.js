@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 
 function Editor(props) {
   return (
-    <div>
+    <div id="controls">
       <label htmlFor="grayscale">
         grayscale
-        <br />
         <input
           name="grayscale"
           id="grayscale"
@@ -13,9 +12,24 @@ function Editor(props) {
           min="0"
           max="1"
           step="0.01"
-          value={props.grayscale}
+          value={props.gray}
           onChange={(e) => {
-            props.updateGrayscale(e.target.value);
+            props.updGray(e.target.value);
+          }}
+        />
+      </label>
+      <label htmlFor="sepia">
+        sepia
+        <input
+          name="sepia"
+          id="sepia"
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
+          value={props.sepia}
+          onChange={(e) => {
+            props.updSepia(e.target.value);
           }}
         />
       </label>

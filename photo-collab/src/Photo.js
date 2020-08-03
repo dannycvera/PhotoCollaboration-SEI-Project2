@@ -5,11 +5,12 @@ import styled from "styled-components";
 
 function Photo(props) {
   const StyledImg = styled.img`
-    filter: grayscale(${props.grayscale});
+    filter: sepia(${props.sepia}) grayscale(${props.gray});
   `;
   const { imageID } = useParams();
   const [image, updateImage] = useState([]);
-  console.log(props.grayscale);
+  console.log("sepia", props.sepia);
+  console.log("gray", props.gray);
   useEffect(() => {
     console.log(imageID);
     const URL = `https://api.airtable.com/v0/appgSipibWEhbQcAf/images/${imageID}`;

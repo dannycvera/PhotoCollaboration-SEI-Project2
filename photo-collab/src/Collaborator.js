@@ -4,13 +4,14 @@ import Posts from "./Posts";
 import Editor from "./Editor";
 
 function Collaborator() {
-  const [grayscale, updateGrayscale] = useState(0);
+  const [gray, updGray] = useState(0);
+  const [sepia, updSepia] = useState(0);
   //console.log(grayscale);
   return (
     <div>
-      <Photo grayscale={grayscale} updateGrayscale={updateGrayscale} />
+      <Photo gray={gray} updGray={updGray} sepia={sepia} updSepia={updSepia} />
       <Posts />
-      <Editor grayscale={grayscale} updateGrayscale={updateGrayscale} />
+      <Editor gray={gray} updGray={updGray} sepia={sepia} updSepia={updSepia} />
     </div>
   );
 }

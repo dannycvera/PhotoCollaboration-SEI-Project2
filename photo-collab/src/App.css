@@ -11,6 +11,7 @@ body,
 }
 
 header {
+  text-align: left;
   position: fixed;
   background-color: black;
   color: white;
@@ -44,6 +45,9 @@ h1 {
 }
 
 /*
+div {
+  text-align: center;
+}
 .App {
   text-align: center;
 }
