@@ -19,20 +19,22 @@ This will hold information regarding the image settings a user has implimented o
 
 ```
 {
-{
     "records": [
         {
-            "id": "recANSo2zAOwpEMHc",
+            "id": "recFeFdAjNxqSA8b9",
             "fields": {
                 "contrast": 1,
                 "hue": 0,
+                "imageID": "recCtYFfzpsjzxoZl",
                 "grayscale": 0,
                 "saturate": 1,
                 "brightness": 1,
+                "notes": "xzcz",
+                "user_email": "photo@danielvera.com",
                 "sepia": 0,
-                "created_at": "2020-08-03T06:34:30.000Z"
+                "created_at": "2020-08-02T05:37:51.000Z"
             },
-            "createdTime": "2020-08-03T06:34:30.000Z"
+            "createdTime": "2020-08-02T05:37:51.000Z"
         },
 ```
 
@@ -42,11 +44,11 @@ This will hold information on each specific image that is added, such as the URL
 {
     "records": [
         {
-            "id": "rec4ZXdCKs3t5SpWG",
+            "id": "recCtYFfzpsjzxoZl",
             "fields": {
-                "description": "small group of birds hovering over a street in Bushwick, Brooklyn",
-                "url": "https://www.danielvera.com/birds/photo04.jpg",
-                "title": "Birds hovering over sidewalk"
+                "description": "A truck forces a group of birds to launch into the sky",
+                "url": "https://www.danielvera.com/birds/photo01.jpg",
+                "title": "Birds Launching"
             },
             "createdTime": "2020-08-02T16:00:37.000Z"
         },
