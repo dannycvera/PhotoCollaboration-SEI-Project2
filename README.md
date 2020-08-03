@@ -12,33 +12,28 @@ The end user will also be able to switch between version of the image by clickin
 ## API 
 
 Airtable will be used as the backend database. 
-I will leverage two linked tables to store data, and use the appropriate end points to retreive information
+I will leverage two tables to store data, and use the appropriate end points to retreive information.
+The userEdits table has a field which stores the imageID which the edits corrispond to. 
 
 Below is an example of the "userEdits" table:
 This will hold information regarding the image settings a user has implimented on each of their posts.
 
 ```
 {
-{
     "records": [
         {
             "id": "recFeFdAjNxqSA8b9",
             "fields": {
                 "contrast": 1,
-                "imageID": [
-                    "rec4ZXdCKs3t5SpWG"
-                ],
+                "hue": 0,
+                "imageID": "recCtYFfzpsjzxoZl",
+                "grayscale": 0,
+                "saturate": 1,
                 "brightness": 1,
                 "notes": "xzcz",
                 "user_email": "photo@danielvera.com",
-                "url": [
-                    "https://www.danielvera.com/birds/photo04.jpg"
-                ],
-                "created_at": "2020-08-02T05:37:51.000Z",
-                "grayscale": 0,
-                "hue": 0,
-                "saturate": 1,
-                "sepia": 0
+                "sepia": 0,
+                "created_at": "2020-08-02T05:37:51.000Z"
             },
             "createdTime": "2020-08-02T05:37:51.000Z"
         },
@@ -47,16 +42,14 @@ This will hold information regarding the image settings a user has implimented o
 Below is the "images" table:
 This will hold information on each specific image that is added, such as the URL, title and description
 ```
+{
     "records": [
         {
-            "id": "rec4ZXdCKs3t5SpWG",
+            "id": "recCtYFfzpsjzxoZl",
             "fields": {
-                "description": "small group of birds hovering over a street in Bushwick, Brooklyn",
-                "url": "https://www.danielvera.com/birds/photo04.jpg",
-                "title": "Birds hovering over sidewalk",
-                "userEdits": [
-                    "recFeFdAjNxqSA8b9"
-                ]
+                "description": "A truck forces a group of birds to launch into the sky",
+                "url": "https://www.danielvera.com/birds/photo01.jpg",
+                "title": "Birds Launching"
             },
             "createdTime": "2020-08-02T16:00:37.000Z"
         },
