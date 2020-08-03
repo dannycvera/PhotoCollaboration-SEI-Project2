@@ -12,7 +12,8 @@ The end user will also be able to switch between version of the image by clickin
 ## API 
 
 Airtable will be used as the backend database. 
-I will leverage two linked tables to store data, and use the appropriate end points to retreive information
+I will leverage two tables to store data, and use the appropriate end points to retreive information.
+The userEdits table has a field which stores the imageID which the edits corrispond to. 
 
 Below is an example of the "userEdits" table:
 This will hold information regarding the image settings a user has implimented on each of their posts.
