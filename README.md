@@ -22,41 +22,31 @@ This will hold information regarding the image settings a user has implimented o
 {
     "records": [
         {
-            "id": "recFeFdAjNxqSA8b9",
+            "id": "recANSo2zAOwpEMHc",
             "fields": {
                 "contrast": 1,
-                "imageID": [
-                    "rec4ZXdCKs3t5SpWG"
-                ],
-                "brightness": 1,
-                "notes": "xzcz",
-                "user_email": "photo@danielvera.com",
-                "url": [
-                    "https://www.danielvera.com/birds/photo04.jpg"
-                ],
-                "created_at": "2020-08-02T05:37:51.000Z",
-                "grayscale": 0,
                 "hue": 0,
+                "grayscale": 0,
                 "saturate": 1,
-                "sepia": 0
+                "brightness": 1,
+                "sepia": 0,
+                "created_at": "2020-08-03T06:34:30.000Z"
             },
-            "createdTime": "2020-08-02T05:37:51.000Z"
+            "createdTime": "2020-08-03T06:34:30.000Z"
         },
 ```
 
 Below is the "images" table:
 This will hold information on each specific image that is added, such as the URL, title and description
 ```
+{
     "records": [
         {
             "id": "rec4ZXdCKs3t5SpWG",
             "fields": {
                 "description": "small group of birds hovering over a street in Bushwick, Brooklyn",
                 "url": "https://www.danielvera.com/birds/photo04.jpg",
-                "title": "Birds hovering over sidewalk",
-                "userEdits": [
-                    "recFeFdAjNxqSA8b9"
-                ]
+                "title": "Birds hovering over sidewalk"
             },
             "createdTime": "2020-08-02T16:00:37.000Z"
         },
