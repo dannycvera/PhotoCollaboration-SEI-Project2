@@ -5,12 +5,15 @@ import styled from "styled-components";
 
 function Photo(props) {
   const StyledImg = styled.img`
-    filter: sepia(${props.sepia}) grayscale(${props.gray});
+    filter: sepia(${props.sepia}) grayscale(${props.gray})
+      hue-rotate(${props.hue}deg) brightness(${props.bright})
+      saturate(${props.satur}) contrast(${props.ctrast});
   `;
   const { imageID } = useParams();
   const [image, updateImage] = useState([]);
   console.log("sepia", props.sepia);
   console.log("gray", props.gray);
+  console.log("hue", props.hue);
   useEffect(() => {
     console.log(imageID);
     const URL = `https://api.airtable.com/v0/appgSipibWEhbQcAf/images/${imageID}`;

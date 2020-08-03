@@ -43,7 +43,22 @@ h1 {
   border: medium solid black;
   margin: 100px 20px 20px 20px;
 }
+.collab {
+  height: 100%;
+}
+#controls {
+  display: flex;
+  flex-wrap: wrap;
+}
+label {
+  margin-right: 15px;
+}
 
+@media (min-width: 600px) {
+  StyledImg {
+    height: 300px;
+  }
+}
 /*
 div {
   text-align: center;
