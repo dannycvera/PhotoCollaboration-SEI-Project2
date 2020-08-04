@@ -38,11 +38,7 @@ h1 {
   margin: 40px;
   border: medium solid black;
 }
-.img-edit {
-  max-height: 500px;
-  border: medium solid black;
-  margin: 100px 20px 20px 20px;
-}
+
 .collab {
   height: 100%;
 }
@@ -54,11 +50,6 @@ label {
   margin-right: 15px;
 }
 
-@media (min-width: 600px) {
-  StyledImg {
-    height: 300px;
-  }
-}
 /*
 div {
   text-align: center;
