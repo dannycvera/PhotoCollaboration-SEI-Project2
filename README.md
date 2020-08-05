@@ -1,10 +1,10 @@
 # Project Overview
 
-## Photo Collaberation App
+## Photo Co-Lab App
 
 ## Project Description
 
-Allow multiple users to change Contrast, Brightness, Hue,Saturation, Greyscale, or add a Sepia tone. 
+Allow multiple users to change Contrast, Brightness, Hue,Saturation, Greyscale, or add a Sepia tone to a photo or image.
 The images will display the changes using state variables and CSS filter() effects.
 Messages describing the changes will be include with each post. 
 The end user will also be able to switch between version of the image by clicking on each message.
