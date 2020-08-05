@@ -12,7 +12,7 @@ function Gallery() {
           Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_KEY}`,
         },
       });
-      console.log(data.data.records);
+      //console.log(data.data.records);
       updateImages(data.data.records);
     };
     getImgs();
@@ -24,7 +24,7 @@ function Gallery() {
         images.map((image) => {
           console.log(image);
           return (
-            <Link to={image.id} key={image.id}>
+            <Link to={`/image/${image.id}`} key={image.id}>
               <img
                 className="img-thumbs"
                 alt={image.fields.title}

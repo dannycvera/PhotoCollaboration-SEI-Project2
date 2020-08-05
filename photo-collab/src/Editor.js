@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import axios from "axios";
 import { useParams } from "react-router";
 
 function Editor(props) {
   const { imageID } = useParams();
-  // useEffect(() => {
 
-  // });
   const handleSubmit = async (e) => {
     const URL = "https://api.airtable.com/v0/appgSipibWEhbQcAf/userEdits";
     e.preventDefault();
     try {
-      const post = await axios.post(
+      await axios.post(
         URL,
         {
           fields: {
@@ -39,8 +37,18 @@ function Editor(props) {
       console.error(error);
     }
   };
+  const reset = (e) => {
+    e.preventDefault();
+    props.updNotes("");
+    props.updCtrast(1);
+    props.updBright(1);
+    props.updSatur(1);
+    props.updGray(0);
+    props.updHue(0);
+    props.updSepia(0);
+  };
   return (
-    <div>
+    <div className="editor">
       <div id="controls">
         <label htmlFor="grayscale">
           grayscale
@@ -146,20 +154,17 @@ function Editor(props) {
         />
         <input
           type="text"
-          size="38"
           placeholder="notes"
           value={props.notes}
           onChange={(e) => {
             props.updNotes(e.target.value);
           }}
         />
-        <button onClick={handleSubmit}>submit changes</button>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-          }}
-        >
-          clear changes
+        <button className="button" onClick={handleSubmit}>
+          submit
+        </button>
+        <button className="button" onClick={reset}>
+          reset
         </button>
       </div>
     </div>
