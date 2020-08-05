@@ -48,8 +48,8 @@ function Editor(props) {
     props.updSepia(0);
   };
   return (
-    <div className="editor">
-      <div id="controls">
+    <div className="photo-editor">
+      <div className="controls">
         <label htmlFor="grayscale">
           grayscale
           <br />
@@ -160,6 +160,7 @@ function Editor(props) {
             props.updNotes(e.target.value);
           }}
         />
+        <br />
         <button className="button" onClick={handleSubmit}>
           submit
         </button>

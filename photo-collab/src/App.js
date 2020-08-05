@@ -14,7 +14,7 @@ function App() {
           <h2>Photo Co-lab</h2>
         </Link>
         <Link to="/newimage">
-          <p>new image</p>
+          <p>(new image)</p>
         </Link>
       </header>
 

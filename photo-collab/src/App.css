@@ -20,6 +20,7 @@ header {
   color: white;
   height: 32px;
   width: 100vw;
+  margin: 0;
 }
 header a {
   text-decoration: none;
@@ -84,19 +85,29 @@ p {
 }
 
 .collab {
+  margin: 0;
   height: calc(100% - 32px);
 }
-#controls {
+
+.photo-editor {
+  margin: 0;
+  padding: 0;
+}
+.controls {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
+
 label {
-  margin-right: 15px;
+  margin: 0 5px;
 }
-.post-list {
+
+.posts-list {
   display: flex;
-  padding: 4px 4px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 5px;
 }
 .post-button {
   background-color: lightcyan;
@@ -116,6 +127,7 @@ input[type="email"],
 }
 input[type="text"] {
   width: 95%;
+  max-width: 100vh;
 }
 .button {
   height: 30px;
@@ -125,6 +137,7 @@ input[type="text"] {
   font-weight: bold;
   border-radius: 10px;
   border: 2px solid rgb(0, 20, 255);
+  outline: none;
 }
 
 @media (max-height: 450px) and (orientation: landscape) {
@@ -132,7 +145,6 @@ input[type="text"] {
     display: flex;
     flex-grow: 1;
     height: auto;
-    width: 100%;
   }
   .photo-div {
     min-width: 300px;
@@ -150,10 +162,20 @@ input[type="text"] {
   .button {
     padding: 2px;
     margin: 2px;
+    max-width: 125px;
   }
   .button {
     height: 25px;
     width: 70px;
+  }
+  .controls {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  .posts-list {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 3px;
   }
 }
 /*
