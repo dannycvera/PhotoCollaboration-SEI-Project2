@@ -55,6 +55,7 @@ function Editor(props) {
     props.updHue(0);
     props.updSepia(0);
     props.updDisplayPost({});
+    props.updTransClass("transition");
     console.log(
       "reset settings",
       props.gray,

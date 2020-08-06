@@ -4,11 +4,10 @@ import { useParams } from "react-router";
 
 function Posts(props) {
   const { imageID } = useParams();
-  const [posts, updatePosts] = useState([]);
+  const [posts, updPosts] = useState([]);
 
   useEffect(() => {
     const URL = `https://api.airtable.com/v0/appgSipibWEhbQcAf/tblROo31txj731J6T?filterByFormula=imageID+%3D+%22${imageID}%22&sort%5B0%5D%5Bfield%5D=created_at&sort%5B0%5D%5Bdirection%5D=desc`;
-    // const URL ="https://api.airtable.com/v0/appgSipibWEhbQcAf/tblROo31txj731J6T?filterByFormula=NOT(%7Buser_email%7D+%3D+'photo%40danielvera.com')";
     const getPosts = async () => {
       const data = await axios.get(URL, {
         headers: {
@@ -16,7 +15,7 @@ function Posts(props) {
         },
       });
       console.log("newPost", data.data.records);
-      updatePosts(data.data.records);
+      updPosts(data.data.records);
     };
     getPosts();
   }, [props.newPost]);
@@ -31,8 +30,8 @@ function Posts(props) {
               className="post-button"
               onClick={(e) => {
                 e.preventDefault();
-                console.log("display posts", post);
-                //console.log(posts);
+                //console.log("display posts", post);
+                props.updTransClass("transition");
                 props.updDisplayPost(post);
               }}
             >

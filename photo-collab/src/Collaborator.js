@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Photo from "./Photo";
 import Posts from "./Posts";
 import Editor from "./Editor";
+// Grand Central Station for variables.
+// Allowing Photo.js Editor.js and Posts.js to pass values to each other thru props
 
 function Collaborator() {
   const [gray, updGray] = useState(0);
@@ -13,34 +15,34 @@ function Collaborator() {
   const [newPost, updNewPost] = useState(false);
   const [email, updEmail] = useState("");
   const [notes, updNotes] = useState("");
+  // Used to add the transition class to the displayed photo.
+  // Then removes it after 500ms to allow instant slider results.
+  const [transClass, updTransClass] = useState("");
   // used to pass the data object back from the Posts component when a previous post is clicked
   const [displayPost, updDisplayPost] = useState({});
 
+  // Post.js will update displayPost with fields when it adds a new post.
+  // Signalling to update the CSS image filters values from the new post
   useEffect(() => {
-    //console.log(displayPost, prevState.displayPost);
     if (displayPost.fields) {
       updGray(displayPost.fields.grayscale);
-
       updSepia(displayPost.fields.sepia);
       updHue(displayPost.fields.hue);
       updBright(displayPost.fields.brightness);
       updCtrast(displayPost.fields.contrast);
       updSatur(displayPost.fields.saturation);
-
-      // updGray(displayPost.fields.grayscale);
-      // updSepia(displayPost.fields.sepia);
-      // updHue(displayPost.fields.hue);
-      // updBright(displayPost.fields.brightness);
-      // updCtrast(displayPost.fields.contrast);
-      // updSatur(displayPost.fields.saturation);
-
-      // updEmail(displayPost.fields.user_email);
-      // updNotes(displayPost.fields.notes);
     }
-    console.log("image settings", gray, sepia, hue, bright, ctrast, satur);
   }, [displayPost]);
-  // Grand Central Station of post variables.
-  // since it's the parent of all the editing and photo display modules
+
+  // watches for when the .transition class is added to a photo thru props.
+  // Then removes it after half a second.
+  useEffect(() => {
+    setTimeout(() => {
+      updTransClass("");
+    }, 500);
+  }, [transClass !== ""]);
+
+  // Sending the appropriate props variables to each component
   return (
     <div className="collab">
       <Photo
@@ -50,6 +52,7 @@ function Collaborator() {
         bright={bright}
         ctrast={ctrast}
         satur={satur}
+        transClass={transClass}
       />
       <Editor
         gray={gray}
@@ -68,13 +71,19 @@ function Collaborator() {
         updEmail={updEmail}
         notes={notes}
         updNotes={updNotes}
+        // Posts.js sends data to the Editor.js to display in the sliders
         newPost={newPost}
         // used to let the Posts component know there is a new post
         updNewPost={updNewPost}
         updDisplayPost={updDisplayPost}
-        //displayPost={displayPost}
+        // adds a transition class to the displayed image
+        updTransClass={updTransClass}
       />
-      <Posts newPost={newPost} updDisplayPost={updDisplayPost} />
+      <Posts
+        newPost={newPost}
+        updDisplayPost={updDisplayPost}
+        updTransClass={updTransClass}
+      />
     </div>
   );
 }

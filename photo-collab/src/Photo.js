@@ -16,6 +16,7 @@ function Photo(props) {
   // `;
   const { imageID } = useParams();
   const [image, updateImage] = useState([]);
+
   const fade = useSpring({ opacity: 1, from: { opacity: 0 } });
 
   useEffect(() => {
@@ -31,17 +32,18 @@ function Photo(props) {
     };
     getImg();
   }, []);
+
   return (
     <div className="photo-div">
-      <animated.img
+      <img
         style={fade}
         style={{
           filter: `sepia(${props.sepia}) grayscale(${props.gray}) hue-rotate(${props.hue}deg) brightness(${props.bright}) saturate(${props.satur}) contrast(${props.ctrast})`,
         }}
-        className="photo"
+        className={`photo ${props.transClass}`}
         src={image.imageFile && image.imageFile[0].url}
         alt={image.title}
-      ></animated.img>
+      ></img>
     </div>
   );
 }
