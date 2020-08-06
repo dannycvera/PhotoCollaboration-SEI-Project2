@@ -1,14 +1,19 @@
 import React, { useState } from "react";
+import { Image } from "cloudinary-react";
 import axios from "axios";
 
 function Newimage() {
   const [title, updTitle] = useState("");
   const [descr, updDescr] = useState("");
-  const [url, updUrl] = useState("");
+  const [urlUpload, updUrlUpload] = useState("");
+  const [file, updFile] = useState([]);
+  const [loading, updLoading] = useState(
+    "enter a URL of the image you want to edit"
+  );
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const URL = "https://api.airtable.com/v0/appgSipibWEhbQcAf/images";
+  const upLoadCloud = async () => {
+    const URL = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_SERVER_NAME}/upload`;
+    console.log(urlUpload);
     try {
       await axios.post(
         URL,
@@ -16,7 +21,7 @@ function Newimage() {
           fields: {
             title: title,
             description: descr,
-            url: url,
+            imageFile: [{ url: urlUpload }],
           },
         },
         {
@@ -28,9 +33,40 @@ function Newimage() {
       );
       updTitle("");
       updDescr("");
-      updUrl("");
-      //props.updNewPost(!props.newPost);
-      //props.updNotes("");
+
+      updUrlUpload("");
+      updLoading("Success");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const URL = "https://api.airtable.com/v0/appgSipibWEhbQcAf/images";
+    console.log("url to upload", urlUpload);
+    try {
+      await axios.post(
+        URL,
+        {
+          fields: {
+            title: title,
+            description: descr,
+            imageFile: [{ url: urlUpload }],
+          },
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_KEY}`,
+          },
+        }
+      );
+      updTitle("");
+      updDescr("");
+
+      updUrlUpload("");
+      updLoading("Success");
     } catch (error) {
       console.error(error);
     }
@@ -57,15 +93,23 @@ function Newimage() {
         ></input>
         <input
           type="text"
-          placeholder="URL"
-          value={url}
+          placeholder="URL to upload"
+          value={urlUpload}
           onChange={(e) => {
-            updUrl(e.target.value);
+            updUrlUpload(e.target.value);
           }}
         ></input>
+        {/* <input
+          type="file"
+          value={file}
+          onChange={(e) => {
+            updFile(e.target.value);
+          }}
+        ></input> */}
         <button className="button" type="submit">
           submit
         </button>
+        <h4>{loading}</h4>
       </form>
     </div>
   );

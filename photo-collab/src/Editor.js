@@ -1,40 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
 
 function Editor(props) {
   const { imageID } = useParams();
-
+  const [emailColor, updEmailColor] = useState("");
+  const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const handleSubmit = async (e) => {
-    const URL = "https://api.airtable.com/v0/appgSipibWEhbQcAf/userEdits";
     e.preventDefault();
-    try {
-      await axios.post(
-        URL,
-        {
-          fields: {
-            user_email: props.email,
-            imageID: imageID,
-            notes: props.notes,
-            contrast: Number(props.ctrast),
-            brightness: Number(props.bright),
-            grayscale: Number(props.gray),
-            hue: Number(props.hue),
-            saturate: Number(props.satur),
-            sepia: Number(props.sepia),
+    if (emailColor === "lightBlue") {
+      const URL = "https://api.airtable.com/v0/appgSipibWEhbQcAf/userEdits";
+
+      try {
+        await axios.post(
+          URL,
+          {
+            fields: {
+              user_email: props.email,
+              imageID: imageID,
+              notes: props.notes,
+              contrast: Number(props.ctrast),
+              brightness: Number(props.bright),
+              grayscale: Number(props.gray),
+              hue: Number(props.hue),
+              saturation: Number(props.satur),
+              sepia: Number(props.sepia),
+            },
           },
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_KEY}`,
-          },
-        }
-      );
-      props.updNewPost(!props.newPost);
-      props.updNotes("");
-    } catch (error) {
-      console.error(error);
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_KEY}`,
+            },
+          }
+        );
+        props.updNewPost(!props.newPost);
+        props.updNotes("");
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      let originalEmailColor = emailColor;
+      updEmailColor("red");
+      setTimeout(() => updEmailColor(originalEmailColor), 1200);
     }
   };
   const reset = (e) => {
@@ -46,7 +54,25 @@ function Editor(props) {
     props.updGray(0);
     props.updHue(0);
     props.updSepia(0);
+    props.updDisplayPost({});
+    console.log(
+      "reset settings",
+      props.gray,
+      props.sepia,
+      props.hue,
+      props.bright,
+      props.ctrast,
+      props.satur
+    );
   };
+
+  const checkEmail = (e) => {
+    props.updEmail(e.target.value);
+    regexEmail.test(e.target.value)
+      ? updEmailColor("lightBlue")
+      : updEmailColor("pink");
+  };
+
   return (
     <div className="photo-editor">
       <div className="controls">
@@ -148,8 +174,9 @@ function Editor(props) {
           type="email"
           placeholder="email"
           value={props.email}
-          onChange={(e) => {
-            props.updEmail(e.target.value);
+          onChange={checkEmail}
+          style={{
+            backgroundColor: emailColor,
           }}
         />
         <input

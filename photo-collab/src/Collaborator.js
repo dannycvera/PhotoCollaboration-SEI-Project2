@@ -13,21 +13,34 @@ function Collaborator() {
   const [newPost, updNewPost] = useState(false);
   const [email, updEmail] = useState("");
   const [notes, updNotes] = useState("");
+  // used to pass the data object back from the Posts component when a previous post is clicked
   const [displayPost, updDisplayPost] = useState({});
 
   useEffect(() => {
+    //console.log(displayPost, prevState.displayPost);
     if (displayPost.fields) {
       updGray(displayPost.fields.grayscale);
+
       updSepia(displayPost.fields.sepia);
       updHue(displayPost.fields.hue);
       updBright(displayPost.fields.brightness);
       updCtrast(displayPost.fields.contrast);
       updSatur(displayPost.fields.saturation);
+
+      // updGray(displayPost.fields.grayscale);
+      // updSepia(displayPost.fields.sepia);
+      // updHue(displayPost.fields.hue);
+      // updBright(displayPost.fields.brightness);
+      // updCtrast(displayPost.fields.contrast);
+      // updSatur(displayPost.fields.saturation);
+
       // updEmail(displayPost.fields.user_email);
       // updNotes(displayPost.fields.notes);
     }
+    console.log("image settings", gray, sepia, hue, bright, ctrast, satur);
   }, [displayPost]);
-
+  // Grand Central Station of post variables.
+  // since it's the parent of all the editing and photo display modules
   return (
     <div className="collab">
       <Photo
@@ -56,8 +69,10 @@ function Collaborator() {
         notes={notes}
         updNotes={updNotes}
         newPost={newPost}
+        // used to let the Posts component know there is a new post
         updNewPost={updNewPost}
-        displayPost={displayPost}
+        updDisplayPost={updDisplayPost}
+        //displayPost={displayPost}
       />
       <Posts newPost={newPost} updDisplayPost={updDisplayPost} />
     </div>

@@ -11,7 +11,7 @@ function App() {
     <>
       <header>
         <Link to="/">
-          <h2>Photo Co-lab</h2>
+          <h2>Photo Co-Lab</h2>
         </Link>
         <Link to="/newimage">
           <p>(new image)</p>
