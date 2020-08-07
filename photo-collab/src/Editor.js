@@ -56,15 +56,6 @@ function Editor(props) {
     props.updSepia(0);
     props.updDisplayPost({});
     props.updTransClass("transition");
-    console.log(
-      "reset settings",
-      props.gray,
-      props.sepia,
-      props.hue,
-      props.bright,
-      props.ctrast,
-      props.satur
-    );
   };
 
   const checkEmail = (e) => {
@@ -189,12 +180,20 @@ function Editor(props) {
           }}
         />
         <br />
-        <button className="button" onClick={handleSubmit}>
-          submit
-        </button>
-        <button className="button" onClick={reset}>
-          reset
-        </button>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: "no-wrap",
+          }}
+        >
+          <button className="button" onClick={handleSubmit}>
+            submit
+          </button>
+          <button className="button" onClick={reset}>
+            reset
+          </button>
+        </div>
       </div>
     </div>
   );

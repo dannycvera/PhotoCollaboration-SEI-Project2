@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Bellota+Text:wght@700&display=swap");
 * {
   box-sizing: border-box;
 }
@@ -10,17 +11,18 @@ body,
   height: 100%;
   width: 100%;
   text-align: center;
+  font-family: "Bellota Text", cursive;
 }
 
 header {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  /* background-color: rgb(98, 185, 255);*/
   background-color: white;
   color: black;
+
   height: 32px;
-  width: 100vw;
+  width: 100%;
   margin: 0;
 }
 header a {
@@ -29,12 +31,13 @@ header a {
 }
 h2 {
   margin-left: 10px;
-  font-size: 22px;
-  padding-top: 5px;
+  font-size: 25px;
+  padding-top: 6px;
 }
 p {
+  font-size: 16px;
   margin-right: 10px;
-  padding-top: 5px;
+  padding-top: 10px;
 }
 .newimage {
   display: flex;
@@ -50,11 +53,12 @@ p {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  height: calc(100% - 40px);
+  height: calc(100% - 32px);
   padding-top: 10px;
 }
 .img-thumbs {
   /*display: flex;*/
+  opacity: 0;
   background-color: rgb(186, 224, 255);
   height: auto;
   width: auto;
@@ -86,9 +90,11 @@ p {
   max-width: 98%;
 }
 .transition {
-  transition: filter 0.5s;
+  transition: filter 0.4s ease;
 }
-
+.opacity1 {
+  opacity: 1;
+}
 .collab {
   margin: 0;
   height: calc(100% - 32px);
@@ -120,6 +126,8 @@ label {
   border: medium solid lightblue;
   margin: 5px;
   outline: none;
+  font-size: 16px;
+  font-family: "Bellota Text", cursive;
 }
 .post-button:focus {
   border-color: rgb(0, 185, 252);
@@ -167,6 +175,9 @@ input[type="text"] {
   border-radius: 10px;
   border: 2px solid rgb(84, 138, 255);
   outline: none;
+  padding: 0px;
+  font-size: 18px;
+  font-family: "Bellota Text", cursive;
 }
 
 @media (max-height: 450px) and (orientation: landscape) {
@@ -196,6 +207,7 @@ input[type="text"] {
   .button {
     height: 25px;
     width: 70px;
+    font-size: 14px;
   }
   .controls {
     flex-direction: column;
@@ -207,11 +219,27 @@ input[type="text"] {
     padding: 3px;
   }
 }
-/*
-  .post-list {
+
+@media (min-height: 450px) and (orientation: landscape) {
+  header {
+    height: 50px;
   }
-  .editor {
+
+  h2 {
+    margin: 10px;
+    font-size: 35px;
+    padding: 0 10px;
   }
-@media (min-height: 450px) {
+  p {
+    margin: 10px;
+    padding: 0 10px;
+    font-size: 22px;
+  }
+
+  .collab {
+    height: calc(100% - 50px);
+  }
+  .gallery {
+    height: calc(100% - 50px);
+  }
 }
-*/

@@ -12,9 +12,10 @@ function Collaborator() {
   const [bright, updBright] = useState(1);
   const [ctrast, updCtrast] = useState(1);
   const [satur, updSatur] = useState(1);
-  const [newPost, updNewPost] = useState(false);
   const [email, updEmail] = useState("");
   const [notes, updNotes] = useState("");
+  // used to signal to the Posts.js to make a new request when a new post is added.
+  const [newPost, updNewPost] = useState(false);
   // Used to add the transition class to the displayed photo.
   // Then removes it after 500ms to allow instant slider results.
   const [transClass, updTransClass] = useState("");
@@ -39,8 +40,8 @@ function Collaborator() {
   useEffect(() => {
     setTimeout(() => {
       updTransClass("");
-    }, 500);
-  }, [transClass !== ""]);
+    }, 400);
+  }, [transClass]);
 
   // Sending the appropriate props variables to each component
   return (
@@ -76,12 +77,13 @@ function Collaborator() {
         // used to let the Posts component know there is a new post
         updNewPost={updNewPost}
         updDisplayPost={updDisplayPost}
-        // adds a transition class to the displayed image
+        // adds a transition class when reseting the values to the displayed image
         updTransClass={updTransClass}
       />
       <Posts
         newPost={newPost}
         updDisplayPost={updDisplayPost}
+        // adds a transition class when switching between posts to the displayed image
         updTransClass={updTransClass}
       />
     </div>

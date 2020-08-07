@@ -1,50 +1,35 @@
 import React, { useState } from "react";
-import { Image } from "cloudinary-react";
 import axios from "axios";
 
 function Newimage() {
   const [title, updTitle] = useState("");
   const [descr, updDescr] = useState("");
   const [urlUpload, updUrlUpload] = useState("");
-  const [file, updFile] = useState([]);
-  const [loading, updLoading] = useState(
-    "enter a URL of the image you want to edit"
-  );
 
-  const upLoadCloud = async () => {
-    const URL = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_SERVER_NAME}/upload`;
-    console.log(urlUpload);
+  const [loadingImg, updLoadingImg] = useState(false);
+  const [loading, updLoading] = useState("");
+  // upload images to Cloudinary server. Then pass url to airtable
+  const upLoadCloud = async (e) => {
     try {
-      await axios.post(
-        URL,
-        {
-          fields: {
-            title: title,
-            description: descr,
-            imageFile: [{ url: urlUpload }],
-          },
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_KEY}`,
-          },
-        }
-      );
-      updTitle("");
-      updDescr("");
+      const data = new FormData();
+      data.append("file", e.target.files[0]);
+      data.append("upload_preset", process.env.REACT_APP_CLOUDINARY_PRESET);
+      updLoadingImg(true);
+      const URL = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_SERVER_NAME}/image/upload`;
+      const res = await axios.post(URL, data);
 
-      updUrlUpload("");
-      updLoading("Success");
+      updLoadingImg(false);
+      updUrlUpload(res.data.secure_url);
     } catch (error) {
       console.error(error);
     }
   };
-
+  // post data to airtable with Cloudinary link if available
   const handleSubmit = async (e) => {
     e.preventDefault();
+    updLoading("loading ...");
     const URL = "https://api.airtable.com/v0/appgSipibWEhbQcAf/images";
-    console.log("url to upload", urlUpload);
+
     try {
       await axios.post(
         URL,
@@ -62,11 +47,15 @@ function Newimage() {
           },
         }
       );
+
       updTitle("");
       updDescr("");
 
       updUrlUpload("");
       updLoading("Success");
+      setTimeout(() => {
+        updLoading("");
+      }, 3000);
     } catch (error) {
       console.error(error);
     }
@@ -93,23 +82,33 @@ function Newimage() {
         ></input>
         <input
           type="text"
-          placeholder="URL to upload"
+          placeholder="URL of image or choose a file locally below"
           value={urlUpload}
           onChange={(e) => {
             updUrlUpload(e.target.value);
           }}
         ></input>
-        {/* <input
+        <br />
+
+        <input
           type="file"
-          value={file}
-          onChange={(e) => {
-            updFile(e.target.value);
-          }}
-        ></input> */}
+          name="file"
+          accepts="image/*"
+          placeholder="upload an image"
+          onChange={upLoadCloud}
+        ></input>
+
         <button className="button" type="submit">
           submit
         </button>
-        <h4>{loading}</h4>
+        <br />
+        {loadingImg ? (
+          <h3>Loading...</h3>
+        ) : (
+          <img src={urlUpload} style={{ width: "100px" }}></img>
+        )}
+        <br />
+        <h3>{loading}</h3>
       </form>
     </div>
   );
