@@ -12,6 +12,7 @@ function Editor(props) {
       const URL = "https://api.airtable.com/v0/appgSipibWEhbQcAf/userEdits";
 
       try {
+        // updates the airtable userEdits table with photo filter edits and their notes
         await axios.post(
           URL,
           {
@@ -45,6 +46,7 @@ function Editor(props) {
       setTimeout(() => updEmailColor(originalEmailColor), 1200);
     }
   };
+  // resets the values to default and adds the transition CSS class
   const reset = (e) => {
     e.preventDefault();
     props.updNotes("");
@@ -57,14 +59,14 @@ function Editor(props) {
     props.updDisplayPost({});
     props.updTransClass("transition");
   };
-
+  // email vaildation
   const checkEmail = (e) => {
     props.updEmail(e.target.value);
     regexEmail.test(e.target.value)
       ? updEmailColor("lightBlue")
       : updEmailColor("pink");
   };
-
+  // sliders for each photo filter
   return (
     <div className="photo-editor">
       <div className="controls">
@@ -181,6 +183,7 @@ function Editor(props) {
         />
         <br />
         <div
+          // make sure the buttons are both horzontally next to each other
           style={{
             display: "flex",
             justifyContent: "center",
