@@ -105,7 +105,11 @@ function Newimage() {
         {loadingImg ? (
           <h3>Loading...</h3>
         ) : (
-          <img src={urlUpload} style={{ width: "100px" }}></img>
+          <img
+            src={urlUpload}
+            alt={urlUpload ? "File has uploaded correctly" : ""}
+            style={{ width: "100px" }}
+          ></img>
         )}
         <br />
         <h3>{loading}</h3>
