@@ -110,13 +110,13 @@ src
 
 |  Day | Deliverable | Status
 |---|---| ---|
-|Aug 2| Prompt / Wireframes / Priority Matrix / Timeframes | incomplete
+|Aug 2| Prompt / Wireframes / Priority Matrix / Timeframes | Complete
 |Aug 3| Project Approval | Complete
-|Aug 3| Core Application Structure (React Modules, CSS, Airtable.) | incomplete
-|Aug 4| Pseudocode / useEffect, Airtable | incomplete
-|Aug 5| Fine tune interface and functionality | incomplete
-|Aug 6| MVP | incomplete
-|Aug 6| PMVP| incomplete
+|Aug 3| Core Application Structure (React Modules, CSS, Airtable.) | Complete
+|Aug 4| Pseudocode / useEffect, Airtable | Complete
+|Aug 5| Fine tune interface and functionality | Complete
+|Aug 6| MVP | Complete
+|Aug 6| PMVP| Partial, Complete
 |Aug 7| Presentations | incomplete
 
 ## Priority Matrix
@@ -127,25 +127,28 @@ src
 
 | Component | Priority | Estimated Time | Time Invested | Actual Time |
 | --- | :---: |  :---: | :---: | :---: |
-| JSX, Modules | H | 4hrs| 0hrs | 0hrs |
-| CSS| H | 5hrs| 0hrs | 0hrs |
-| Working with Airtable | H | 4hrs| 0hrs | 0hrs |
-| userEdits display modile | H | 8hrs| 0hrs | 0hrs |
-| useEffect(photo editing) | H | 8hrs| 0hrs | 0hrs |
-| add image module | H | 3hrs| 0hrs | 0hrs |
-| PMVP - Change Layout to landscape | M | 4hrs| 0hrs | 0hrs |
-| PMVP - react-spring for transition effects | L | 3hrs| 0hrs | 0hrs |
-| PMVP - styled-components | L | 3hrs| 0hrs | 0hrs |
+| JSX, Modules | H | 4hrs| 4hrs | 0hrs |
+| CSS| H | 5hrs|2.5hrs | 0hrs |
+| Working with Airtable | H | 4hrs| 4hrs | 0hrs |
+| userEdits display module | H | 8hrs| 5hrs | 0hrs |
+| useEffect(photo editing) | H | 8hrs| 5hrs | 0hrs |
+| add image module | H | 3hrs| 3hrs | 0hrs |
+| PMVP - Change Layout to landscape | M | 4hrs| 4hrs | 0hrs |
+| PMVP - react-spring for transition effects | L | 3hrs| 6hrs | 0hrs |
+| PMVP - styled-components | L | 3hrs| 5.5hrs | 0hrs |
 | PMVP - full screen image display | L | 3hrs| 0hrs | 0hrs |
-| PMVP - image upload | L | 3hrs| 0hrs | 0hrs |
-| Total | H | 48hrs| 0hrs | 0hrs |
+| PMVP - image upload | L | 3hrs| 4hrs | 0hrs |
+| Total | H | 48hrs| 41hrs | 0hrs |
 
 ## Code Snippet
 TBA
 ```
-
+style={{
+          filter: `sepia(${props.sepia}) grayscale(${props.gray}) hue-rotate(${props.hue}deg) brightness(${props.bright}) saturate(${props.satur}) contrast(${props.ctrast})`,
+        }}
 ```
 
 ## Change Log
 
 TBA
+
