@@ -33,7 +33,8 @@ function Collaborator() {
       updCtrast(displayPost.fields.contrast);
       updSatur(displayPost.fields.saturation);
     }
-  }, [displayPost]);
+    updDisplayPost({});
+  }, [displayPost.fields]);
 
   // watches for when the .transition class is added to a photo thru props.
   // Then removes it after half a second.
@@ -54,6 +55,7 @@ function Collaborator() {
         ctrast={ctrast}
         satur={satur}
         transClass={transClass}
+        updTransClass={updTransClass}
       />
       <Editor
         gray={gray}

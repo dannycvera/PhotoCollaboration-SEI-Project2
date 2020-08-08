@@ -9,6 +9,8 @@ function Newimage() {
   const [loadingImg, updLoadingImg] = useState(false);
   const [loading, updLoading] = useState("");
   // upload images to Cloudinary server. Then pass url to airtable
+  // most of the code to upload to Cloudinary was aquired from Coding Shiksha's Video walktru
+  // https://www.youtube.com/watch?v=cc0oMYaduuA
   const upLoadCloud = async (e) => {
     try {
       const data = new FormData();
@@ -89,15 +91,17 @@ function Newimage() {
           }}
         ></input>
         <br />
-
-        <input
-          type="file"
-          name="file"
-          accepts="image/*"
-          placeholder="upload an image"
-          onChange={upLoadCloud}
-        ></input>
-
+        <label htmlFor="file-upload" className="file-button">
+          choose file
+          <input
+            id="file-upload"
+            type="file"
+            name="file"
+            accepts="image/*"
+            placeholder="upload an image"
+            onChange={upLoadCloud}
+          ></input>
+        </label>
         <button className="button" type="submit">
           submit
         </button>

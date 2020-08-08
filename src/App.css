@@ -20,7 +20,6 @@ header {
   justify-content: space-around;
   background-color: white;
   color: black;
-
   height: 32px;
   width: 100%;
   margin: 0;
@@ -56,20 +55,23 @@ p {
   height: calc(100% - 32px);
   padding-top: 10px;
 }
-.img-thumbs {
-  /*display: flex;*/
+.img-thumbs,
+.photo {
   opacity: 0;
-  background-color: rgb(186, 224, 255);
-  height: auto;
-  width: auto;
-  user-select: none;
-  object-fit: cover;
-  object-fit: contain;
-  border-radius: 3px;
+  transition: opacity 0.4s ease;
+}
+
+.transition {
+  transition: filter 0.4s ease;
+}
+.opacity-1 {
+  opacity: 1;
+}
+
+.img-thumbs {
+  margin: 20px;
   max-height: 40vh;
   max-width: 90%;
-  margin: 20px;
-  border: medium solid rgb(186, 224, 255);
 }
 .photo-div {
   display: flex;
@@ -77,24 +79,22 @@ p {
   align-items: center;
 }
 .photo {
-  border: medium solid rgb(186, 224, 255);
-  background-color: rgb(186, 224, 255);
-  border-radius: 5px;
   margin: 10px;
-  user-select: none;
-  object-fit: cover;
-  object-fit: contain;
-  height: auto;
-  width: auto;
   max-height: 65vh;
   max-width: 98%;
 }
-.transition {
-  transition: filter 0.4s ease;
+.img-thumbs,
+.photo {
+  border-radius: 8px;
+  border: 3px solid lightblue;
+  background-color: lightblue;
+  height: auto;
+  width: auto;
+  user-select: none;
+  object-fit: cover;
+  object-fit: contain;
 }
-.opacity1 {
-  opacity: 1;
-}
+
 .collab {
   margin: 0;
   height: calc(100% - 32px);
@@ -121,16 +121,17 @@ label {
   padding: 5px;
 }
 .post-button {
-  background-color: lightcyan;
+  background: lightcyan;
   border-radius: 10px;
-  border: medium solid lightblue;
   margin: 5px;
+  padding: 3px;
   outline: none;
   font-size: 16px;
   font-family: "Bellota Text", cursive;
+  cursor: pointer;
 }
-.post-button:focus {
-  border-color: rgb(0, 185, 252);
+.post-button a {
+  text-decoration: none;
 }
 
 input[type="range"] {
@@ -142,44 +143,65 @@ input[type="range"] {
   outline: none;
 }
 
-input[type="range"]::-webkit-slider-runnable-track {
-  appearance: none;
-  color: #13bba4;
-}
 input[type="range"]::-webkit-slider-thumb {
   appearance: none;
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: rgb(98, 185, 255);
   cursor: pointer;
 }
 
 input[type="text"],
-input[type="email"],
-.button {
+input[type="email"] {
   padding: 5px;
   margin: 5px;
-}
-input[type="text"] {
-  width: 95%;
-  max-width: 100vh;
+  border-radius: 10px;
+  outline: none;
 }
 
-.button {
+input[type="text"] {
+  width: 95%;
+  max-width: 90vh;
+}
+
+.button,
+.file-button {
   height: 30px;
   width: 100px;
-  background: rgb(106, 203, 255);
   color: white;
   font-weight: bold;
   border-radius: 10px;
-  border: 2px solid rgb(84, 138, 255);
+  padding: 0 8px;
   outline: none;
-  padding: 0px;
   font-size: 18px;
   font-family: "Bellota Text", cursive;
 }
+.file-button {
+  padding: 1px 8px 1px 8px;
+}
 
+input[type="file"] {
+  width: 1px;
+  opacity: 0;
+}
+input[type="range"]::-webkit-slider-thumb,
+.button,
+.file-button {
+  background: rgb(106, 203, 255);
+}
+
+input[type="text"],
+input[type="email"],
+.post-button {
+  border: 3px solid lightblue;
+}
+
+input[type="range"]::-webkit-slider-thumb,
+.post-button:focus,
+.button,
+.file-button {
+  border: 3px solid rgb(84, 138, 255);
+}
 @media (max-height: 450px) and (orientation: landscape) {
   .collab {
     display: flex;
@@ -198,13 +220,17 @@ input[type="text"] {
     margin: 10px;
   }
   input[type="text"],
-  input[type="email"],
-  .button {
+  input[type="email"] {
     padding: 2px;
     margin: 2px;
-    max-width: 125px;
+  }
+  .file-button {
+    font-size: 14px;
+    padding: 1px 8px 1px 8px;
   }
   .button {
+    margin: 2px;
+    padding: 0;
     height: 25px;
     width: 70px;
     font-size: 14px;

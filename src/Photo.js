@@ -6,6 +6,7 @@ function Photo(props) {
   // The url hosts the imageID to retrieve the choose photo for editing
   const { imageID } = useParams();
   const [image, updateImage] = useState([]);
+  const [fade, updfade] = useState("");
   // gets the current image to edit from Airtable
   useEffect(() => {
     const URL = `https://api.airtable.com/v0/appgSipibWEhbQcAf/images/${imageID}`;
@@ -22,13 +23,16 @@ function Photo(props) {
   return (
     <div className="photo-div">
       <img
-        className={`photo ${props.transClass}`}
+        className={`photo ${fade} ${props.transClass}`}
         // filters are dynamically applied when you change the slider values using prop variables
         style={{
           filter: `sepia(${props.sepia}) grayscale(${props.gray}) hue-rotate(${props.hue}deg) brightness(${props.bright}) saturate(${props.satur}) contrast(${props.ctrast})`,
         }}
         src={image.imageFile && image.imageFile[0].url}
         alt={image.title}
+        onLoad={() => {
+          updfade("opacity-1");
+        }}
       ></img>
     </div>
   );

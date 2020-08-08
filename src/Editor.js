@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
 
+// geting imageID from the URL.
+// Use the imageID to cross reference the images with userEdits related to that image
+
 function Editor(props) {
   const { imageID } = useParams();
   const [emailColor, updEmailColor] = useState("");
@@ -67,11 +70,12 @@ function Editor(props) {
       : updEmailColor("pink");
   };
   // sliders for each photo filter
+  // trying out the react-slider to display the current position inside the thumb.
   return (
     <div className="photo-editor">
       <div className="controls">
         <label htmlFor="grayscale">
-          grayscale
+          grayscale {Number(props.gray).toFixed(2)}
           <br />
           <input
             name="grayscale"
@@ -87,7 +91,7 @@ function Editor(props) {
         </label>
 
         <label htmlFor="sepia">
-          sepia
+          sepia {Number(props.sepia).toFixed(2)}
           <br />
           <input
             name="sepia"
@@ -103,7 +107,7 @@ function Editor(props) {
         </label>
 
         <label htmlFor="hue">
-          hue
+          hue {props.hue}
           <br />
           <input
             name="hue"
@@ -118,7 +122,7 @@ function Editor(props) {
           />
         </label>
         <label htmlFor="brightness">
-          brightness
+          brightness {Number(props.bright).toFixed(2)}
           <br />
           <input
             name="brightness"
@@ -133,7 +137,7 @@ function Editor(props) {
           />
         </label>
         <label htmlFor="contrast">
-          contrast
+          contrast {Number(props.ctrast).toFixed(2)}
           <br />
           <input
             name="contrast"
@@ -148,7 +152,7 @@ function Editor(props) {
           />
         </label>
         <label htmlFor="saturate">
-          saturate
+          saturate {Number(props.satur).toFixed(2)}
           <br />
           <input
             name="saturate"
@@ -163,7 +167,7 @@ function Editor(props) {
           />
         </label>
       </div>
-      <div>
+      <div style={{ marginTop: "8px" }}>
         <input
           type="email"
           placeholder="email"
@@ -173,6 +177,7 @@ function Editor(props) {
             backgroundColor: emailColor,
           }}
         />
+        <br />
         <input
           type="text"
           placeholder="notes"

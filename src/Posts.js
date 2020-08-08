@@ -20,7 +20,7 @@ function Posts(props) {
     };
     getPosts();
   }, [props.newPost, imageID]);
-
+  // displaying all the posts
   return (
     <div className="posts-list">
       {posts &&
@@ -30,13 +30,20 @@ function Posts(props) {
               key={post.id}
               className="post-button"
               onClick={(e) => {
-                e.preventDefault();
+                e.stopPropagation();
+
                 // used to add the transition class to the current photo.
                 // just for added cool factor
                 props.updTransClass("transition");
+
                 props.updDisplayPost(post);
               }}
             >
+              {/* email link option. Not sure if I want to impliment this since it can be annoying for fat fingered people.
+                <a
+                  href={`mailto:${post.fields.user_email}?subject=Lets chat about your photo edit&body=${window.location.href}`}
+                >
+                </a> */}
               {post.fields.user_email}
               <br />
               {post.fields.notes}
