@@ -47,6 +47,7 @@ p {
   height: 50%;
   padding-top: 10px;
 }
+/* start with opacity 0 to give a starting point for fading into opacity 1 */
 .gallery {
   display: flex;
   justify-content: center;
@@ -55,10 +56,7 @@ p {
   height: calc(100% - 32px);
   padding-top: 10px;
 }
-.img-thumbs,
 .photo {
-  opacity: 0;
-  transition: opacity 0.4s ease;
 }
 
 .transition {
