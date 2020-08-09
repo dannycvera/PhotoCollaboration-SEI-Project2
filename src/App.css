@@ -84,7 +84,6 @@ p {
 .img-thumbs,
 .photo {
   border-radius: 8px;
-  border: 3px solid lightblue;
   background-color: lightblue;
   height: auto;
   width: auto;
@@ -177,6 +176,11 @@ input[type="text"] {
 .file-button {
   padding: 1px 8px 1px 8px;
 }
+.file-thumb {
+  width: 100px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
 
 input[type="file"] {
   width: 1px;
@@ -190,7 +194,10 @@ input[type="range"]::-webkit-slider-thumb,
 
 input[type="text"],
 input[type="email"],
-.post-button {
+.post-button,
+.file-thumb,
+.img-thumbs,
+.photo {
   border: 3px solid lightblue;
 }
 

@@ -52,17 +52,16 @@ function Gallery() {
             } else {
               imageURL = image.fields.imageFile[0].url;
             }
+            return (
+              <Link to={`/image/${image.id}`} key={image.id}>
+                <img
+                  className="img-thumbs"
+                  alt={image.fields.title}
+                  src={image.fields.imageFile && imageURL}
+                ></img>
+              </Link>
+            );
           }
-
-          return (
-            <Link to={`/image/${image.id}`} key={image.id}>
-              <img
-                className="img-thumbs"
-                alt={image.fields.title}
-                src={image.fields.imageFile && imageURL}
-              ></img>
-            </Link>
-          );
         })}
     </animated.div>
   );

@@ -1,27 +1,87 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function Newimage() {
   const [title, updTitle] = useState("");
   const [descr, updDescr] = useState("");
   const [urlUpload, updUrlUpload] = useState("");
-
+  const [file, updFile] = useState("");
   const [loadingImg, updLoadingImg] = useState(false);
   const [loading, updLoading] = useState("");
   // upload images to Cloudinary server. Then pass url to airtable
   // most of the code to upload to Cloudinary was aquired from Coding Shiksha's Video walktru
   // https://www.youtube.com/watch?v=cc0oMYaduuA
   const upLoadCloud = async (e) => {
+    e.preventDefault();
     try {
       const data = new FormData();
-      data.append("file", e.target.files[0]);
-      data.append("upload_preset", process.env.REACT_APP_CLOUDINARY_PRESET);
-      updLoadingImg(true);
-      const URL = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_SERVER_NAME}/image/upload`;
-      const res = await axios.post(URL, data);
 
-      updLoadingImg(false);
-      updUrlUpload(res.data.secure_url);
+      // const data = {
+      //   context: {
+      //     "alt": descr,
+      //     "caption": title,
+      //   },
+      //   upload_preset: process.env.REACT_APP_CLOUDINARY_PRESET,
+      // };
+
+      // data.append("file", e.target.files[0]);
+      //data.append("file", urlUpload);
+
+      // const data = {
+      //   context:
+      //   upload_preset: process.env.REACT_APP_CLOUDINARY_PRESET,
+      // };
+
+      if (file !== "") {
+        console.log(file);
+        data.append("file", file);
+      } else if (urlUpload !== "") {
+        console.log(urlUpload);
+        data.append("file", urlUpload);
+      }
+
+      data.append("context", `alt=${descr} | caption=${title}`);
+      data.append("upload_preset", process.env.REACT_APP_CLOUDINARY_PRESET);
+      console.log(data);
+      updLoadingImg(true);
+      const URLCloud = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_SERVER_NAME}/image/upload`;
+      const resCloud = await axios.post(URLCloud, data);
+      // combining the submit with uploading to cloudinary
+
+      if (resCloud.data.secure_url) {
+        const URLAirtable = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_ID}/images`;
+        const resAirtable = await axios.post(
+          URLAirtable,
+          {
+            fields: {
+              title: title,
+              description: descr,
+              imageUrl: resCloud.data.secure_url,
+            },
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_KEY}`,
+            },
+          }
+        );
+        updLoading("Success");
+
+        console.log(resCloud, resAirtable);
+        updLoadingImg(false);
+      } else {
+        updLoading("Image failed to upload");
+      }
+      updTitle("");
+      updDescr("");
+      updUrlUpload("");
+      setTimeout(() => {
+        updLoading("");
+        updUrlUpload("");
+        updFile("");
+      }, 3000);
+      // updUrlUpload(res.data.secure_url);
     } catch (error) {
       console.error(error);
     }
@@ -30,6 +90,7 @@ function Newimage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     updLoading("loading ...");
+
     const URL = "https://api.airtable.com/v0/appgSipibWEhbQcAf/images";
 
     try {
@@ -62,10 +123,15 @@ function Newimage() {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    console.log(file);
+  }, [file]);
+
   return (
     <div className="newimage">
       <h2>add a new image to co-edit</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={upLoadCloud}>
         <input
           type="text"
           placeholder="title"
@@ -88,6 +154,7 @@ function Newimage() {
           value={urlUpload}
           onChange={(e) => {
             updUrlUpload(e.target.value);
+            urlUpload();
           }}
         ></input>
         <br />
@@ -97,9 +164,19 @@ function Newimage() {
             id="file-upload"
             type="file"
             name="file"
-            accepts="image/*"
+            accepts=".jpg, .jpeg, .png .gif"
             placeholder="upload an image"
-            onChange={upLoadCloud}
+            onChange={(e) => {
+              updLoadingImg(true);
+              console.log(e.target.files[0]);
+              const reader = new FileReader();
+              reader.onload = (e) => {
+                updFile(e.target.result);
+
+                updLoadingImg(false);
+              };
+              reader.readAsDataURL(e.target.files[0]);
+            }}
           ></input>
         </label>
         <button className="button" type="submit">
@@ -108,12 +185,14 @@ function Newimage() {
         <br />
         {loadingImg ? (
           <h3>Loading...</h3>
-        ) : (
+        ) : file !== "" ? (
           <img
-            src={urlUpload}
-            alt={urlUpload ? "File has uploaded correctly" : ""}
-            style={{ width: "100px" }}
+            className="file-thumb"
+            src={file}
+            alt={"The file has uploaded"}
           ></img>
+        ) : (
+          <></>
         )}
         <br />
         <h3>{loading}</h3>
