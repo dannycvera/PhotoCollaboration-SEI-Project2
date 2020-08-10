@@ -4,6 +4,7 @@ import axios from "axios";
 import { useSpring, animated } from "react-spring";
 
 function Gallery() {
+  const [images, updImages] = useState([]);
   const [fade, updfade] = useState(0);
   const opac = useSpring({
     config: { duration: 400 },
@@ -12,7 +13,6 @@ function Gallery() {
     from: { opacity: 0 },
   });
 
-  const [images, updImages] = useState([]);
   // make axios call from airtable to get list of photos to choose from
   useEffect(() => {
     const URL = `https://api.airtable.com/v0/appgSipibWEhbQcAf/images?sort%5B0%5D%5Bfield%5D=created_at&sort%5B0%5D%5Bdirection%5D=desc`;
