@@ -7,7 +7,7 @@ function Newimage() {
   const [urlUpload, updUrlUpload] = useState("");
   const [file, updFile] = useState("");
   const [loadingImg, updLoadingImg] = useState(false);
-  const [loading, updLoading] = useState("");
+  const [loading, updLoading] = useState("There is a 10 MB file size limit");
   // upload images to Cloudinary server. Then pass url to airtable
   // most of the code to upload to Cloudinary was aquired from Coding Shiksha's Video walktru
   // https://www.youtube.com/watch?v=cc0oMYaduuA
@@ -73,7 +73,9 @@ function Newimage() {
       // updUrlUpload(res.data.secure_url);
     } catch (error) {
       updLoadingImg(false);
-      updLoading("Image failed to upload. Please check the URL or Filetype");
+      updLoading(
+        "Image failed to upload. Please check the URL or Filetype. Also make sure your image is smaller than 10MB's"
+      );
 
       console.error(error);
     }
