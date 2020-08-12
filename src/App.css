@@ -44,7 +44,7 @@ p {
   align-items: center;
   flex-wrap: no-wrap;
   flex-direction: column;
-  height: 50%;
+  height: auto;
   padding-top: 10px;
 }
 /* start with opacity 0 to give a starting point for fading into opacity 1 */
@@ -55,8 +55,6 @@ p {
   flex-wrap: wrap;
   height: calc(100% - 32px);
   padding-top: 0;
-}
-.photo {
 }
 
 .transition {
@@ -172,6 +170,7 @@ input[type="text"] {
   outline: none;
   font-size: 18px;
   font-family: "Bellota Text", cursive;
+  margin: 0 8px;
 }
 .file-button {
   padding: 1px 8px 1px 8px;
@@ -234,7 +233,7 @@ input[type="range"]::-webkit-slider-thumb,
     padding: 1px 8px 1px 8px;
   }
   .button {
-    margin: 2px;
+    margin: 2px 8px;
     padding: 0;
     height: 25px;
     width: 70px;
@@ -272,5 +271,8 @@ input[type="range"]::-webkit-slider-thumb,
   }
   .gallery {
     height: calc(100% - 50px);
+  }
+  .button {
+    margin: 6px;
   }
 }
