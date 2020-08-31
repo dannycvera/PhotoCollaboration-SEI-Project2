@@ -27,6 +27,30 @@ function App() {
       <Route path="/image/:imageID" exact>
         <Collaborator />
       </Route>
+      <footer>
+        <div className="social-bar">
+          <a
+            href="https://github.com/dannycvera"
+            className="github"
+            target="_blank"
+          >
+            <img
+              className="github-icon"
+              src={require("./img/GitHub-logo-32px.png")}
+            />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/daniel-vera-65bbb07/"
+            className="linkedin"
+            target="_blank"
+          >
+            <img
+              className="linkedin-icon"
+              src={require("./img/linkedIn-logo.png")}
+            />
+          </a>
+        </div>
+      </footer>
     </>
   );
 }

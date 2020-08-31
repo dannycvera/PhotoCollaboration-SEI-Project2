@@ -8,7 +8,7 @@ body,
 #root {
   margin: 0;
   padding: 0;
-  height: 100%;
+  height: auto;
   width: 100%;
   text-align: center;
   font-family: "Bellota Text", cursive;
@@ -206,7 +206,14 @@ input[type="range"]::-webkit-slider-thumb,
 .file-button {
   border: 3px solid rgb(84, 138, 255);
 }
-@media (max-height: 450px) and (orientation: landscape) {
+.social-bar {
+  height: 80px;
+  margin-top: 30px;
+}
+.github-icon {
+  margin: 0px 10px 4px 10px;
+}
+@media screen and (max-height: 420px) and (orientation: landscape) {
   .collab {
     display: flex;
     flex-grow: 1;
@@ -250,7 +257,7 @@ input[type="range"]::-webkit-slider-thumb,
   }
 }
 
-@media (min-height: 450px) and (orientation: landscape) {
+@media screen and (min-height: 420px) and (orientation: landscape) {
   header {
     height: 80px;
   }
