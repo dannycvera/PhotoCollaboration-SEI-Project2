@@ -116,15 +116,13 @@ function Newimage() {
             id="file-upload"
             type="file"
             name="file"
-            accepts=".jpg, .jpeg, .png .gif"
+            accepts=".mp4,.jpg, .jpeg, .png, .gif"
             placeholder="upload an image"
             onChange={(e) => {
               updLoadingImg(true);
-              //console.log(e.target.files[0]);
               const reader = new FileReader();
               reader.onload = (e) => {
                 updFile(e.target.result);
-
                 updLoadingImg(false);
               };
               reader.readAsDataURL(e.target.files[0]);
