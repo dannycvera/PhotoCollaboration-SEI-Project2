@@ -1,7 +1,7 @@
 import React from "react";
 
 function Posts(props) {
-  const { updPost, posts } = props;
+  const { updPost, posts, updTransClass } = props;
 
   // displaying all the posts
   return (
@@ -14,14 +14,14 @@ function Posts(props) {
               className="post-button"
               onClick={(e) => {
                 e.stopPropagation();
-
+                updTransClass("transition");
                 // used to add the transition class to the current photo.
                 // just for added cool factor
-                const clickedPost = { ...el.fields };
-                delete clickedPost.created_at;
-                clickedPost.user_email = "";
-                clickedPost.notes = "";
-                updPost(clickedPost);
+                const selectPost = { ...el.fields };
+                delete selectPost.created_at;
+                selectPost.user_email = "";
+                selectPost.notes = "";
+                updPost(selectPost);
               }}
             >
               {/* email link option. Not sure if I want to impliment this since it can be annoying for fat fingered people.

@@ -24,19 +24,19 @@ function Collaborator() {
   });
   // Used to add the transition class to the displayed photo.
   // Then removes it after 500ms to allow instant slider results.
-  const [transClass, updTransClass] = useState("transition");
+  const [transClass, updTransClass] = useState("");
 
   // watches for when the .transition class is added to a photo thru props.
   // Then removes it after half a second.
   useEffect(() => {
     setTimeout(() => {
-      updTransClass("transition");
+      updTransClass("");
     }, 400);
   }, [transClass]);
 
   const [posts, updPosts] = useState([]);
 
-  // the request is filtered by th imagID of the currently choosen photo. Sorted by creation date
+  // the request for all the posts are filtered by th imagID of the currently choosen photo. Sorted by creation date
   useEffect(() => {
     const URL = `https://api.airtable.com/v0/appgSipibWEhbQcAf/tblROo31txj731J6T?filterByFormula=imageID+%3D+%22${imageID}%22&sort%5B0%5D%5Bfield%5D=created_at&sort%5B0%5D%5Bdirection%5D=desc`;
     const getPosts = async () => {
@@ -50,7 +50,6 @@ function Collaborator() {
     getPosts();
   }, [imageID]);
   const handleChange = (e) => {
-    updTransClass("");
     const { name, value } = e.target;
     updPost({ ...post, [name]: Number(value) });
   };
@@ -68,8 +67,9 @@ function Collaborator() {
         updPosts={updPosts}
         handleChange={handleChange}
         handleTextChange={handleTextChange}
+        updTransClass={updTransClass}
       />
-      <Posts updPost={updPost} posts={posts} />
+      <Posts updPost={updPost} posts={posts} updTransClass={updTransClass} />
     </div>
   );
 }

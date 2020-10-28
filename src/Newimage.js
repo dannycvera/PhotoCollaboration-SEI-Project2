@@ -2,32 +2,35 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function Newimage() {
-  const [title, updTitle] = useState("");
-  const [descr, updDescr] = useState("");
-  const [urlUpload, updUrlUpload] = useState("");
-  const [file, updFile] = useState("");
-  const [loadingImg, updLoadingImg] = useState(false);
+  const [imgUpl, updImgUpl] = useState({
+    title: "",
+    description: "",
+    imageUrl: "",
+    file: "",
+  });
+  const { title, description, imageUrl, file } = imgUpl;
   const [loading, updLoading] = useState("There is a 10 MB file size limit");
   // upload images to Cloudinary server. Then pass url to airtable
   // most of the code to upload to Cloudinary was aquired from Coding Shiksha's Video walktru
   // https://www.youtube.com/watch?v=cc0oMYaduuA
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    updImgUpl({ ...imgUpl, [name]: value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const data = new FormData();
       if (file !== "") {
-        // console.log(file);
         data.append("file", file);
-      } else if (urlUpload !== "") {
-        // console.log(urlUpload);
-        data.append("file", urlUpload);
+      } else if (imageUrl !== "") {
+        data.append("file", imageUrl);
       }
-
-      data.append("context", `alt=${descr} | caption=${title}`);
+      data.append("context", `alt=${description} | caption=${title}`);
       data.append("upload_preset", process.env.REACT_APP_CLOUDINARY_PRESET);
-      // console.log(data);
-      updLoadingImg(true);
+      updLoading("Loading...");
       const URLCloud = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_SERVER_NAME}/image/upload`;
       const resCloud = await axios.post(URLCloud, data);
       // combining the submit with uploading to cloudinary
@@ -39,7 +42,7 @@ function Newimage() {
           {
             fields: {
               title: title,
-              description: descr,
+              description: description,
               imageFile: [
                 {
                   // using cloudinary to generate an image with a height of 1100px.
@@ -59,25 +62,29 @@ function Newimage() {
           }
         );
         updLoading("Success");
-
-        //console.log(resCloud, resAirtable);
       } else {
         updLoading("Image failed to upload");
       }
-      updLoadingImg(false);
-      updTitle("");
-      updDescr("");
-      updUrlUpload("");
-      updFile("");
-
-      // updUrlUpload(res.data.secure_url);
+      updImgUpl({ title: "", description: "", imageUrl: "", file: "" });
     } catch (error) {
-      updLoadingImg(false);
       updLoading(
         "Image failed to upload. Please check the URL or Filetype. Also make sure your image is smaller than 10MB's"
       );
-
       console.error(error);
+    }
+  };
+
+  const Thumbnail = () => {
+    if (loading !== "Loading..." && file !== "") {
+      return (
+        <img
+          className="file-thumb"
+          src={file}
+          alt={"The file has uploaded"}
+        ></img>
+      );
+    } else {
+      return <></>;
     }
   };
 
@@ -87,27 +94,24 @@ function Newimage() {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
+          name="title"
           placeholder="title"
           value={title}
-          onChange={(e) => {
-            updTitle(e.target.value);
-          }}
+          onChange={handleChange}
         ></input>
         <input
           type="text"
+          name="description"
           placeholder="description"
-          value={descr}
-          onChange={(e) => {
-            updDescr(e.target.value);
-          }}
+          value={description}
+          onChange={handleChange}
         ></input>
         <input
           type="text"
+          name="imageUrl"
           placeholder="URL of image or choose a file locally below"
-          value={urlUpload}
-          onChange={(e) => {
-            updUrlUpload(e.target.value);
-          }}
+          value={imageUrl}
+          onChange={handleChange}
         ></input>
         <br />
         <label htmlFor="file-upload" className="file-button">
@@ -119,20 +123,17 @@ function Newimage() {
             accept=".jpg, .jpeg, .png, .gif"
             placeholder="upload an image"
             onChange={(e) => {
-              updLoadingImg(true);
+              updLoading("Loading...");
               const reader = new FileReader();
               reader.onload = (e) => {
-                updFile(e.target.result);
-                updLoadingImg(false);
+                updImgUpl({ ...imgUpl, file: e.target.result });
               };
-
               try {
                 reader.readAsDataURL(e.target.files[0]);
                 updLoading("Image is ready to be uploaded to the server");
               } catch (error) {
-                updLoadingImg(false);
                 updLoading(
-                  "Something went wrong. We'll use the image you choose previously."
+                  "Something went wrong. We'll use the image you chose previously."
                 );
               }
             }}
@@ -142,17 +143,7 @@ function Newimage() {
           submit
         </button>
         <br />
-        {loadingImg ? (
-          <h3>Loading...</h3>
-        ) : file !== "" ? (
-          <img
-            className="file-thumb"
-            src={file}
-            alt={"The file has uploaded"}
-          ></img>
-        ) : (
-          <></>
-        )}
+        <Thumbnail />
         <br />
         <h3>{loading}</h3>
       </form>

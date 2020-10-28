@@ -5,14 +5,21 @@ import axios from "axios";
 // Use the imageID to cross reference the images with userEdits related to that image
 
 function Editor(props) {
-  const { post, updPost, updPosts, handleChange, handleTextChange } = props;
+  const {
+    post,
+    updPost,
+    updPosts,
+    handleChange,
+    handleTextChange,
+    updTransClass,
+  } = props;
   const [emailColor, updEmailColor] = useState("");
   const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (emailColor === "lightBlue") {
       const URL = "https://api.airtable.com/v0/appgSipibWEhbQcAf/userEdits";
-      console.log(post);
+
       try {
         // updates the airtable userEdits table with photo filter edits and their notes
         const resData = await axios.post(
@@ -27,7 +34,7 @@ function Editor(props) {
             },
           }
         );
-        updPosts((prevState) => [...prevState, resData.data]);
+        updPosts((prevState) => [resData.data, ...prevState]);
         updPost({ ...post, notes: "" });
       } catch (error) {
         console.error(error);
@@ -41,6 +48,7 @@ function Editor(props) {
   // resets the values to default and adds the transition CSS class
   const reset = (e) => {
     e.preventDefault();
+    updTransClass("transition");
     updPost({
       grayscale: 0,
       sepia: 0,
