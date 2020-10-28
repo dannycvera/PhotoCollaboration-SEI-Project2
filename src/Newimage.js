@@ -116,7 +116,7 @@ function Newimage() {
             id="file-upload"
             type="file"
             name="file"
-            accepts=".mp4,.jpg, .jpeg, .png, .gif"
+            accept=".jpg, .jpeg, .png, .gif"
             placeholder="upload an image"
             onChange={(e) => {
               updLoadingImg(true);
@@ -125,7 +125,16 @@ function Newimage() {
                 updFile(e.target.result);
                 updLoadingImg(false);
               };
-              reader.readAsDataURL(e.target.files[0]);
+
+              try {
+                reader.readAsDataURL(e.target.files[0]);
+                updLoading("Image is ready to be uploaded to the server");
+              } catch (error) {
+                updLoadingImg(false);
+                updLoading(
+                  "Something went wrong. We'll use the image you choose previously."
+                );
+              }
             }}
           ></input>
         </label>
