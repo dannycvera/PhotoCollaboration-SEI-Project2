@@ -33,20 +33,24 @@ function App() {
             href="https://github.com/dannycvera"
             className="github"
             target="_blank"
+            rel="noopener noreferrer"
           >
             <img
               className="github-icon"
               src={require("./img/GitHub-logo-32px.png")}
+              alt="github"
             />
           </a>
           <a
             href="https://www.linkedin.com/in/daniel-vera-65bbb07/"
             className="linkedin"
             target="_blank"
+            rel="noopener noreferrer"
           >
             <img
               className="linkedin-icon"
               src={require("./img/linkedIn-logo.png")}
+              alt="linkedin"
             />
           </a>
         </div>

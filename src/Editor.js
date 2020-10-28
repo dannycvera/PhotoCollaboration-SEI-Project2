@@ -1,35 +1,24 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router";
 
 // geting imageID from the URL.
 // Use the imageID to cross reference the images with userEdits related to that image
 
 function Editor(props) {
-  const { imageID } = useParams();
+  const { post, updPost, updPosts, handleChange, handleTextChange } = props;
   const [emailColor, updEmailColor] = useState("");
-  const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (emailColor === "lightBlue") {
       const URL = "https://api.airtable.com/v0/appgSipibWEhbQcAf/userEdits";
-
+      console.log(post);
       try {
         // updates the airtable userEdits table with photo filter edits and their notes
-        await axios.post(
+        const resData = await axios.post(
           URL,
           {
-            fields: {
-              user_email: props.email,
-              imageID: imageID,
-              notes: props.notes,
-              contrast: Number(props.ctrast),
-              brightness: Number(props.bright),
-              grayscale: Number(props.gray),
-              hue: Number(props.hue),
-              saturation: Number(props.satur),
-              sepia: Number(props.sepia),
-            },
+            fields: post,
           },
           {
             headers: {
@@ -38,8 +27,8 @@ function Editor(props) {
             },
           }
         );
-        props.updNewPost(!props.newPost);
-        props.updNotes("");
+        updPosts((prevState) => [...prevState, resData.data]);
+        updPost({ ...post, notes: "" });
       } catch (error) {
         console.error(error);
       }
@@ -52,19 +41,20 @@ function Editor(props) {
   // resets the values to default and adds the transition CSS class
   const reset = (e) => {
     e.preventDefault();
-    props.updNotes("");
-    props.updCtrast(1);
-    props.updBright(1);
-    props.updSatur(1);
-    props.updGray(0);
-    props.updHue(0);
-    props.updSepia(0);
-    props.updDisplayPost({});
-    props.updTransClass("transition");
+    updPost({
+      grayscale: 0,
+      sepia: 0,
+      hue: 0,
+      brightness: 1,
+      contrast: 1,
+      saturation: 1,
+      user_email: "",
+      notes: "",
+    });
   };
   // email vaildation
   const checkEmail = (e) => {
-    props.updEmail(e.target.value);
+    handleTextChange(e);
     regexEmail.test(e.target.value)
       ? updEmailColor("lightBlue")
       : updEmailColor("pink");
@@ -75,7 +65,7 @@ function Editor(props) {
     <div className="photo-editor">
       <div className="controls">
         <label htmlFor="grayscale">
-          grayscale {Number(props.gray).toFixed(2)}
+          grayscale {Number(post.grayscale).toFixed(2)}
           <br />
           <input
             name="grayscale"
@@ -83,15 +73,13 @@ function Editor(props) {
             min="0"
             max="1"
             step="0.01"
-            value={props.gray}
-            onChange={(e) => {
-              props.updGray(e.target.value);
-            }}
+            value={post.grayscale}
+            onChange={handleChange}
           />
         </label>
 
         <label htmlFor="sepia">
-          sepia {Number(props.sepia).toFixed(2)}
+          sepia {Number(post.sepia).toFixed(2)}
           <br />
           <input
             name="sepia"
@@ -99,30 +87,26 @@ function Editor(props) {
             min="0"
             max="1"
             step="0.01"
-            value={props.sepia}
-            onChange={(e) => {
-              props.updSepia(e.target.value);
-            }}
+            value={post.sepia}
+            onChange={handleChange}
           />
         </label>
 
         <label htmlFor="hue">
-          hue {props.hue}
+          hue {post.hue}
           <br />
           <input
             name="hue"
             type="range"
-            min="0"
-            max="360"
-            step="1"
-            value={props.hue}
-            onChange={(e) => {
-              props.updHue(e.target.value);
-            }}
+            min={0}
+            max={360}
+            step={1}
+            value={post.hue}
+            onChange={handleChange}
           />
         </label>
         <label htmlFor="brightness">
-          brightness {Number(props.bright).toFixed(2)}
+          brightness {Number(post.brightness).toFixed(2)}
           <br />
           <input
             name="brightness"
@@ -130,14 +114,12 @@ function Editor(props) {
             min="0"
             max="2"
             step="0.05"
-            value={props.bright}
-            onChange={(e) => {
-              props.updBright(e.target.value);
-            }}
+            value={post.brightness}
+            onChange={handleChange}
           />
         </label>
         <label htmlFor="contrast">
-          contrast {Number(props.ctrast).toFixed(2)}
+          contrast {Number(post.contrast).toFixed(2)}
           <br />
           <input
             name="contrast"
@@ -145,46 +127,41 @@ function Editor(props) {
             min="0"
             max="2"
             step="0.05"
-            value={props.ctrast}
-            onChange={(e) => {
-              props.updCtrast(e.target.value);
-            }}
+            value={post.contrast}
+            onChange={handleChange}
           />
         </label>
-        <label htmlFor="saturate">
-          saturate {Number(props.satur).toFixed(2)}
+        <label htmlFor="saturation">
+          saturation {Number(post.saturation).toFixed(2)}
           <br />
           <input
-            name="saturate"
+            name="saturation"
             type="range"
             min="0"
             max="3"
             step="0.05"
-            value={props.satur}
-            onChange={(e) => {
-              props.updSatur(e.target.value);
-            }}
+            value={post.saturation}
+            onChange={handleChange}
           />
         </label>
       </div>
       <div style={{ marginTop: "8px" }}>
         <input
+          name="user_email"
           type="email"
           placeholder="email"
-          value={props.email}
-          onChange={checkEmail}
+          value={post.user_email}
           style={{
             backgroundColor: emailColor,
           }}
+          onChange={checkEmail}
         />
         <br />
-        <input
-          type="text"
+        <textarea
+          name="notes"
           placeholder="notes"
-          value={props.notes}
-          onChange={(e) => {
-            props.updNotes(e.target.value);
-          }}
+          value={post.notes}
+          onChange={handleTextChange}
         />
         <br />
         <div

@@ -40,28 +40,27 @@ function Gallery() {
         }
       }}
     >
-      {/* only running the .map loop if the images data exists.  */}
       {images &&
         images.map((image) => {
           let imageURL;
-          if (image.fields.imageFile) {
-            // checking if the server generated the thumbnails yet.
-            // It can be slow after uploading a new image
-            if (image.fields.imageFile[0].thumbnails) {
-              imageURL = image.fields.imageFile[0].thumbnails.large.url;
-            } else {
-              imageURL = image.fields.imageFile[0].url;
-            }
-            return (
-              <Link to={`/image/${image.id}`} key={image.id}>
-                <img
-                  className="img-thumbs"
-                  alt={image.fields.title}
-                  src={image.fields.imageFile && imageURL}
-                ></img>
-              </Link>
-            );
+          // checking if the server generated the thumbnails yet.
+          // It can be slow after uploading a new image
+          if (image.fields.imageFile[0].thumbnails) {
+            imageURL = image.fields.imageFile[0].thumbnails.large.url;
+          } else if (image.fields.imageFile) {
+            imageURL = image.fields.imageFile[0].url;
+          } else {
+            imageURL = require("./img/noimg.jpg");
           }
+          return (
+            <Link to={`/image/${image.id}`} key={image.id}>
+              <img
+                className="img-thumbs"
+                alt={image.fields.title}
+                src={imageURL}
+              ></img>
+            </Link>
+          );
         })}
     </animated.div>
   );

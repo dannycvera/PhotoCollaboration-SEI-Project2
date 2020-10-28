@@ -24,29 +24,25 @@ header {
   width: 100%;
   margin: 0;
 }
+
 header a {
   text-decoration: none;
   color: rgb(58, 165, 201);
 }
+
 h2 {
   margin-left: 10px;
   font-size: 25px;
   padding-top: 6px;
+  color: rgb(58, 165, 201);
 }
+
 p {
   font-size: 16px;
   margin-right: 10px;
   padding-top: 10px;
 }
-.newimage {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: no-wrap;
-  flex-direction: column;
-  height: auto;
-  padding-top: 10px;
-}
+
 /* start with opacity 0 to give a starting point for fading into opacity 1 */
 .gallery {
   display: flex;
@@ -60,6 +56,7 @@ p {
 .transition {
   transition: filter 0.4s ease;
 }
+
 .opacity-1 {
   opacity: 1;
 }
@@ -74,11 +71,13 @@ p {
   justify-content: center;
   align-items: center;
 }
+
 .photo {
   margin: 10px;
   max-height: 65vh;
   max-width: 98%;
 }
+
 .img-thumbs,
 .photo {
   border-radius: 8px;
@@ -115,6 +114,7 @@ label {
   flex-wrap: wrap;
   padding: 5px;
 }
+
 .post-button {
   background: lightcyan;
   border-radius: 10px;
@@ -125,10 +125,23 @@ label {
   font-family: "Bellota Text", cursive;
   cursor: pointer;
 }
+
 .post-button a {
   text-decoration: none;
 }
 
+.post-button:focus {
+  border: 3px solid rgb(106, 203, 255);
+}
+.new-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: no-wrap;
+  flex-direction: column;
+  height: auto;
+  padding-top: 10px;
+}
 input[type="range"] {
   appearance: none;
   width: 100%;
@@ -146,7 +159,27 @@ input[type="range"]::-webkit-slider-thumb {
   cursor: pointer;
 }
 
+input[type="range"]::-webkit-slider-thumb,
+.button,
+.file-button {
+  /* background: rgb(106, 203, 255); */
+  background-image: linear-gradient(
+    to bottom left,
+    rgb(106, 203, 255),
+    #568ee8
+  );
+}
+.new-image > form {
+  width: 75%;
+}
+.new-image > form > input[type="text"] {
+  display: block;
+  margin: 10px auto;
+  width: 90%;
+}
+
 input[type="text"],
+.photo-editor textarea,
 input[type="email"] {
   padding: 5px;
   margin: 5px;
@@ -154,9 +187,11 @@ input[type="email"] {
   outline: none;
 }
 
-input[type="text"] {
+.photo-editor textarea {
   width: 95%;
-  max-width: 90vh;
+  max-width: 98%;
+  min-width: 50%;
+  min-height: 50px;
 }
 
 .button,
@@ -172,9 +207,11 @@ input[type="text"] {
   font-family: "Bellota Text", cursive;
   margin: 0 8px;
 }
+
 .file-button {
-  padding: 1px 8px 1px 8px;
+  padding: 4px 8px 5px 8px;
 }
+
 .file-thumb {
   width: 100px;
   margin-top: 10px;
@@ -185,14 +222,10 @@ input[type="file"] {
   width: 1px;
   opacity: 0;
 }
-input[type="range"]::-webkit-slider-thumb,
-.button,
-.file-button {
-  background: rgb(106, 203, 255);
-}
 
+.photo-editor textarea,
+.photo-editor input[type="email"],
 input[type="text"],
-input[type="email"],
 .post-button,
 .file-thumb,
 .img-thumbs,
@@ -201,18 +234,20 @@ input[type="email"],
 }
 
 input[type="range"]::-webkit-slider-thumb,
-.post-button:focus,
 .button,
 .file-button {
-  border: 3px solid rgb(84, 138, 255);
+  border: none;
 }
+
 .social-bar {
   height: 80px;
   margin-top: 30px;
 }
+
 .github-icon {
   margin: 0px 10px 4px 10px;
 }
+
 @media screen and (max-height: 420px) and (orientation: landscape) {
   .collab {
     display: flex;
@@ -230,6 +265,7 @@ input[type="range"]::-webkit-slider-thumb,
   .img-thumbs {
     margin: 10px;
   }
+
   input[type="text"],
   input[type="email"] {
     padding: 2px;

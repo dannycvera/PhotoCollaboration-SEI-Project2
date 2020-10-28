@@ -34,7 +34,7 @@ function Newimage() {
 
       if (resCloud.data.secure_url) {
         const URLAirtable = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_ID}/images`;
-        const resAirtable = await axios.post(
+        await axios.post(
           URLAirtable,
           {
             fields: {
@@ -82,7 +82,7 @@ function Newimage() {
   };
 
   return (
-    <div className="newimage">
+    <div className="new-image">
       <h2>add a new image to co-edit</h2>
       <form onSubmit={handleSubmit}>
         <input
