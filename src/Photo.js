@@ -6,7 +6,9 @@ import { useSpring, animated } from "react-spring";
 function Photo(props) {
   // The url hosts the imageID to retrieve the choose photo for editing
   const { imageID } = useParams();
-  const [image, updateImage] = useState([]);
+  const { post, transClass } = props;
+
+  const [image, updateImage] = useState({});
   const [fade, updfade] = useState(0);
   const opac = useSpring({
     config: { duration: 300 },
@@ -30,15 +32,16 @@ function Photo(props) {
   return (
     <animated.div className={`photo-div`} style={opac}>
       <img
-        className={`photo ${props.transClass}`}
+        className={`photo ${transClass}`}
         // filters are dynamically applied when you change the slider values using prop variables
         style={{
-          filter: `sepia(${props.sepia}) grayscale(${props.gray}) hue-rotate(${props.hue}deg) brightness(${props.bright}) saturate(${props.satur}) contrast(${props.ctrast})`,
+          filter: `sepia(${post.sepia}) grayscale(${post.grayscale}) hue-rotate(${post.hue}deg) brightness(${post.brightness}) saturate(${post.saturation}) contrast(${post.contrast})`,
         }}
         src={image.imageFile && image.imageFile[0].url}
         onLoad={() => {
           // only starting the animation if the image data has been downloaded from the API
           // using a useState var "fade" to start the useSpring fade-in
+
           if (image.imageFile) {
             updfade(1);
           }
